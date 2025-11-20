@@ -25,14 +25,6 @@
         }
         body { background: #f8f9fa; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); margin: 0; padding: 0; }
         .navbar { background: white; border-bottom: 1px solid var(--border); box-shadow: 0 2px 10px rgba(0,0,0,.05); }
-#datePicker {
-    font-size: 1rem;
-    cursor: pointer;
-}
-#datePicker::-webkit-calendar-picker-indicator {
-    opacity: 0.7;
-    cursor: pointer;
-}
         .navbar-brand { font-weight: 700; color: var(--primary) !important; }
         .hero { background: linear-gradient(135deg, #eef2ff, #d0e0ff); padding: 4rem 2rem; border-radius: 1.5rem; margin: 2rem 0; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,.08); }
         .hero h1 { font-weight: 800; color: var(--primary); margin-bottom: 1rem; }
@@ -131,7 +123,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#" onclick="showPage('home'); return false;">
-                <i class="fas fa-cogs me-2"></i>JPI OEE
+                <i class="fas fa-cogs me-2"></i>Overall Equipment Effectivenss
             </a>
             <span class="navbar-text ms-auto">
                 <i class="fas fa-calendar-alt me-1"></i>
@@ -151,8 +143,9 @@
     <!-- Home Page -->
     <div id="home" class="page active container py-4">
         <div class="hero">
-            <h1>Jayasinghe Plastic Industries OEE dashboard</h1>
-            <p>Track <strong>OEE = Availability × Performance × Quality</strong></p>
+            <h1>Jayasinghe Plastic Industries OEE Dashboard</h1>
+            <p><strong>Overall Equipment Effectiveness is a simple measure of how efficiently a machine is running, based on its Availability, Performance, and Quality. It shows how much of the equipments full potential is actually used and helps identify areas to improve productivity.
+
             <div id="login-section" class="login-section">
                 <h4><i class="fas fa-sign-in-alt"></i> Login to Edit Data</h4>
                 <input type="email" id="login-email" class="form-control" placeholder="Email" />
@@ -161,32 +154,14 @@
                 <p class="text-muted small mt-2">Use your Firebase account (email/password). Only authorized users can save.</p>
             </div>
         </div>
-        <nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="#" onclick="showPage('home'); return false;">
-            <i class="fas fa-cogs me-2"></i>JPI OEE
-        </a>
-        
-        <div class="ms-auto d-flex align-items-center gap-3">
-            <!-- Date Picker -->
-            <div class="d-flex align-items-center bg-white rounded-3 shadow-sm px-3 py-2 border">
-                <i class="fas fa-calendar-alt text-primary me-2"></i>
-                <input type="date" id="datePicker" class="form-control border-0 shadow-none" style="width: auto; font-weight: 600;">
-            </div>
-
-            <!-- Clock -->
-            <span class="navbar-text">
-                <i class="fas fa-clock me-1"></i>
-                <span id="current-time"></span>
-            </span>
-
-            <!-- Auth Status -->
-            <div id="auth-status" class="auth-status" style="display: none;">
-                <span id="user-info"></span>
-                <button id="logout-btn" class="logout-btn" onclick="logoutUser()" style="display: none;">Logout</button>
-            </div>
-        </div>
+<div class="text-center my-4">
+    <div class="d-inline-flex align-items-center bg-white rounded-pill shadow-sm border px-3 py-2" style="border: 2px solid #4361ee;">
+        <i class="fas fa-calendar-alt text-primary me-2"></i>
+        <input type="date" id="datePicker" class="border-0" style="outline: none; width: 140px; font-weight: 600; color: #4361ee; background: transparent;">
+        <span id="selectedDateText" class="ms-2 text-primary fw-bold"></span>
     </div>
+    <div class="text-muted small mt-1">Data for selected date</div>
+</div>
         <div id="read-only-msg" class="read-only-msg" style="display: none;">Viewing in read-only mode. <a href="#" onclick="showLogin()">Login to edit</a>.</div>
         <div class="shift-selector">
             <label for="shiftSelector">Select Shift for Entry:</label>
@@ -960,26 +935,6 @@
 
         // INIT - Load from Firebase on start (unchanged)
         loadData();
-// === DATE PICKER INITIALIZATION ===
-const datePicker = document.getElementById('datePicker');
-
-// Set default to today (or your desired date)
-const today = new Date();
-const yyyy = today.getFullYear();
-const mm = String(today.getMonth() + 1).padStart(2, '0');
-const dd = String(today.getDate()).padStart(2, '0');
-datePicker.value = `${yyyy}-${mm}-${dd}`;  // Shows November 20, 2025 if today is that date
-
-// Optional: Do something when date changes
-datePicker.addEventListener('change', function() {
-    const selectedDate = this.value;
-    const formatted = new Date(selectedDate).toLocaleDateString('en-GB', {
-        day: '2-digit', month: 'short', year: 'numeric'
-    });
-    console.log('Selected Date:', formatted);
-    // You can later use this date for filtering data, export filename, etc.
-    // Example: alert(`Dashboard now showing data for: ${formatted}`);
-});
     </script>
 </body>
 </html>
